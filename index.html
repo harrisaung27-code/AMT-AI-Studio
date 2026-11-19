@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="my">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10172a"><meta name="description" content="AMT AI Studio - AI Photo and Video Studio">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png">
+<title>AMT AI Studio</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1020;color:#f7f8ff;font-family:system-ui,-apple-system,"Noto Sans Myanmar",sans-serif}
+main{max-width:720px;margin:auto;padding:20px 15px 42px}.head{display:flex;align-items:center;gap:12px;margin:6px 0 20px}
+.logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:grid;place-items:center;font-size:25px}
+h1{font-size:23px;margin:0}.sub,.hint{color:#aeb9d0;font-size:13px;line-height:1.65}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:10px}.lang{width:auto;padding:8px 12px;background:#27334c;border:1px solid #43516f;font-size:12px}
+.card{background:#151e32;border:1px solid #2c3853;border-radius:17px;padding:16px;margin:13px 0}
+h2{font-size:16px;margin:0 0 12px}.upload{display:block;text-align:center;border:1px dashed #7180a0;border-radius:12px;padding:18px;cursor:pointer}
+input[type=file]{display:none}img.preview{display:none;max-width:100%;max-height:230px;margin:12px auto 0;border-radius:12px}
+textarea,select{width:100%;padding:12px;margin:6px 0 12px;background:#0b1427;color:white;border:1px solid #34415e;border-radius:10px;font:inherit}
+textarea{min-height:90px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{width:100%;border:0;border-radius:11px;padding:13px;background:linear-gradient(100deg,#7c3aed,#db2777);color:white;font-weight:700;font-size:15px;cursor:pointer}
+button.alt{background:#27334c;border:1px solid #43516f;margin-top:9px}
+.external{display:block;text-align:center;text-decoration:none;margin-top:10px;padding:13px;border-radius:11px;background:#263b35;border:1px solid #3c755f;color:#d7ffe9;font-size:14px;font-weight:700}\n#result{white-space:pre-wrap;line-height:1.7;font-size:13px;color:#e4e9f5;overflow-wrap:anywhere}
+.small{font-size:11px;color:#8391aa;text-align:center;margin-top:20px}
+</style></head>
+<body><main>
+<header class="head"><div class="logo">🎬</div><div style="flex:1"><h1>AMT AI Studio</h1><div class="sub">AI Photo & Video Studio</div></div><button class="lang" id="langBtn">EN</button></header>
+<section class="card"><h2 id="photoTitle">၁။ ဓာတ်ပုံရွေးပါ</h2>
+<label class="upload" id="uploadLabel">📷 ဖုန်းထဲမှ ဓာတ်ပုံရွေးရန်<input id="photo" type="file" accept="image/*"><img id="preview" class="preview" alt="Selected photo"></label>
+<p class="hint" id="photoHint">ဓာတ်ပုံကို ဒီဖုန်းထဲမှာပဲ Preview ပြပေးပါတယ်။</p></section>
+<section class="card"><h2 id="storyTitle">၂။ ဗီဒီယိုအကြောင်း ရေးပါ</h2>
+<label class="hint" id="ideaLabel" for="idea">ဖန်တီးချင်တဲ့ ဇာတ်လမ်း</label><textarea id="idea" placeholder="ဥပမာ - ကမ်းခြေမှာ ချစ်သူနှစ်ယောက် လက်တွဲလမ်းလျှောက်နေတဲ့ ဗီဒီယို"></textarea>
+<div class="grid"><div><label class="hint" id="durationLabel" for="duration">ကြာချိန်</label><select id="duration"><option value="10">10 စက္ကန့်</option><option value="15">15 စက္ကန့်</option><option value="30">30 စက္ကန့်</option></select></div>
+<div><label class="hint" id="scenesLabel" for="scenes">ဇာတ်ကွက်အရေအတွက်</label><select id="scenes"><option value="1">၁ ခန်း</option><option value="3">၃ ခန်း</option><option value="6" selected>၆ ခန်း</option></select></div></div>
+<label class="hint" id="dialogueLabel" for="dialogue">မြန်မာစကားပြော / စာတန်း</label><textarea id="dialogue" placeholder="ဥပမာ - ကိုကို မင်းကို အရမ်းချစ်တယ်"></textarea>
+<button id="make">ဇာတ်ကွက် Prompt ဖန်တီးမယ်</button></section>
+<section class="card">
+<h2 id="motionTitle">၃။ ဗီဒီယိုလှုပ်ရှားမှု သတ်မှတ်ပါ</h2>
+<label class="hint" id="motionLabel" for="motion">ဓာတ်ပုံထဲက လူ/အရာဝတ္ထု ဘယ်လိုလှုပ်ရှားမလဲ</label>
+<textarea id="motion" placeholder="ဥပမာ - နှစ်ယောက်လုံး ပြုံးပြီး ကင်မရာဘက်ကို ဖြည်းဖြည်းလှည့်ကြည့်မယ်"></textarea>
+<div class="grid">
+<div><label class="hint" id="cameraLabel" for="camera">ကင်မရာလှုပ်ရှားမှု</label><select id="camera"><option value="slow cinematic push-in">Slow zoom in</option><option value="gentle camera pan">Gentle pan</option><option value="static camera">Static camera</option><option value="smooth tracking shot">Tracking shot</option></select></div>
+<div><label class="hint" id="ratioLabel" for="ratio">ဗီဒီယိုအချိုး</label><select id="ratio"><option value="9:16">9:16 (TikTok/Reels)</option><option value="16:9">16:9 (YouTube)</option><option value="1:1">1:1 (Square)</option></select></div>
+</div>
+<label class="hint" id="avoidLabel" for="avoid">မဖြစ်စေချင်တာ (Optional)</label><textarea id="avoid" placeholder="ဥပမာ - မျက်နှာမပြောင်းစေ၊ လက်ချောင်းမပိုစေ၊ ပုံမပျက်စေ"></textarea>
+</section>
+<section class="card"><h2 id="promptTitle">၄။ AI Video Prompt</h2><div id="result" class="hint">အချက်အလက်ဖြည့်ပြီး Prompt ဖန်တီးပါ။</div><button class="alt" id="copy">Prompt ကူးယူမယ်</button>
+<a class="external" id="freeEngine" href="https://firefly.adobe.com/" target="_blank" rel="noopener">အခမဲ့ AI Video ထုတ်ရန် — Adobe Firefly ↗</a></section>
+<p class="hint" id="disclaimer">ဒီဗားရှင်းမှာ ဓာတ်ပုံ Preview နဲ့ Prompt ဖန်တီးမှု ပါဝင်ပါတယ်။ AI ဗီဒီယိုကို တကယ်ထုတ်ဖို့ နောက်တစ်ဆင့်မှာ AI video service/API ချိတ်ဆက်ရန် လိုအပ်ပြီး ဝန်ဆောင်ခရှိနိုင်ပါတယ်။</p>
+<div class="small">AMT AI Studio • Version 0.4</div>
+</main>
+<script>
+let lang='my', lastPrompt='';
+const T={
+my:{freeEngine:'အခမဲ့ AI Video ထုတ်ရန် — Adobe Firefly ↗',motionTitle:'၃။ ဗီဒီယိုလှုပ်ရှားမှု သတ်မှတ်ပါ',motionLabel:'ဓာတ်ပုံထဲက လူ/အရာဝတ္ထု ဘယ်လိုလှုပ်ရှားမလဲ',cameraLabel:'ကင်မရာလှုပ်ရှားမှု',ratioLabel:'ဗီဒီယိုအချိုး',avoidLabel:'မဖြစ်စေချင်တာ (Optional)',photoTitle:'၁။ ဓာတ်ပုံရွေးပါ',upload:'📷 ဖုန်းထဲမှ ဓာတ်ပုံရွေးရန်',photoHint:'ဓာတ်ပုံကို ဒီဖုန်းထဲမှာပဲ Preview ပြပေးပါတယ်။',storyTitle:'၂။ ဗီဒီယိုအကြောင်း ရေးပါ',ideaLabel:'ဖန်တီးချင်တဲ့ ဇာတ်လမ်း',ideaPh:'ဥပမာ - ကမ်းခြေမှာ ချစ်သူနှစ်ယောက် လက်တွဲလမ်းလျှောက်နေတဲ့ ဗီဒီယို',duration:'ကြာချိန်',scenes:'ဇာတ်ကွက်အရေအတွက်',dialogue:'မြန်မာစကားပြော / စာတန်း',dialoguePh:'ဥပမာ - ကိုကို မင်းကို အရမ်းချစ်တယ်',make:'ဇာတ်ကွက် Prompt ဖန်တီးမယ်',promptTitle:'၃။ AI Video Prompt',empty:'အချက်အလက်ဖြည့်ပြီး Prompt ဖန်တီးပါ။',copy:'Prompt ကူးယူမယ်',disclaimer:'ဒီဗားရှင်းမှာ ဓာတ်ပုံ Preview နဲ့ Prompt ဖန်တီးမှု ပါဝင်ပါတယ်။ AI ဗီဒီယိုကို တကယ်ထုတ်ဖို့ AI video service/API ချိတ်ဆက်ရန် လိုအပ်ပြီး ဝန်ဆောင်ခရှိနိုင်ပါတယ်။',durationOpts:['10 စက္ကန့်','15 စက္ကန့်','30 စက္ကန့်'],sceneOpts:['၁ ခန်း','၃ ခန်း','၆ ခန်း'],copied:'ကူးယူပြီးပါပြီ ✓',copyFail:'မကူးယူနိုင်ပါ — စာသားကို ဖိထားပြီး ကူးပါ'},
+en:{freeEngine:'Generate free AI video — Adobe Firefly ↗',motionTitle:'3. Set video motion',motionLabel:'How should the person/object in the photo move?',cameraLabel:'Camera movement',ratioLabel:'Aspect ratio',avoidLabel:'Avoid (optional)',photoTitle:'1. Choose a photo',upload:'📷 Choose a photo from your phone',photoHint:'Your photo preview stays on this device.',storyTitle:'2. Describe your video',ideaLabel:'What should happen in the video?',ideaPh:'Example: A couple walking hand in hand on a beach',duration:'Duration',scenes:'Number of scenes',dialogue:'Burmese dialogue / captions',dialoguePh:'Example: Ko Ko, I love you so much',make:'Create video prompt',promptTitle:'3. AI Video Prompt',empty:'Fill in the details, then create your prompt.',copy:'Copy prompt',disclaimer:'This version includes photo preview and prompt creation. Actual AI video generation needs an AI video service/API, which may cost money.',durationOpts:['10 seconds','15 seconds','30 seconds'],sceneOpts:['1 scene','3 scenes','6 scenes'],copied:'Copied ✓',copyFail:'Could not copy — press and hold the text to copy'}
+};
+function setLang(next){lang=next;const t=T[lang];document.documentElement.lang=lang;document.getElementById('langBtn').textContent=lang==='my'?'EN':'မြန်မာ';
+for(const [id,key] of [['freeEngine','freeEngine'],['motionTitle','motionTitle'],['motionLabel','motionLabel'],['cameraLabel','cameraLabel'],['ratioLabel','ratioLabel'],['avoidLabel','avoidLabel'],['photoTitle','photoTitle'],['photoHint','photoHint'],['storyTitle','storyTitle'],['ideaLabel','ideaLabel'],['durationLabel','duration'],['scenesLabel','scenes'],['dialogueLabel','dialogue'],['make','make'],['promptTitle','promptTitle'],['copy','copy'],['disclaimer','disclaimer']])document.getElementById(id).textContent=t[key];
+document.getElementById('uploadLabel').childNodes[0].textContent=t.upload;
+document.getElementById('motion').placeholder=lang==='my'?'ဥပမာ - နှစ်ယောက်လုံး ပြုံးပြီး ကင်မရာဘက်ကို ဖြည်းဖြည်းလှည့်ကြည့်မယ်':'Example: Both smile and slowly turn toward the camera';document.getElementById('avoid').placeholder=lang==='my'?'ဥပမာ - မျက်နှာမပြောင်းစေ၊ လက်ချောင်းမပိုစေ၊ ပုံမပျက်စေ':'Example: Keep faces unchanged; no extra fingers or distortion';document.getElementById('idea').placeholder=t.ideaPh;document.getElementById('dialogue').placeholder=t.dialoguePh;
+[...document.getElementById('duration').options].forEach((o,i)=>o.textContent=t.durationOpts[i]);
+[...document.getElementById('scenes').options].forEach((o,i)=>o.textContent=t.sceneOpts[i]);
+if(!lastPrompt)document.getElementById('result').textContent=t.empty;
+}
+document.getElementById('langBtn').addEventListener('click',()=>setLang(lang==='my'?'en':'my'));
+document.getElementById('photo').addEventListener('change',()=>{const f=photo.files&&photo.files[0];if(f){preview.src=URL.createObjectURL(f);preview.style.display='block';}});
+document.getElementById('make').addEventListener('click',()=>{
+ const idea=document.getElementById('idea').value.trim()||(lang==='my'?'ရိုမန်တစ်ဆန်သော ဇာတ်လမ်း':'A romantic story');
+ const dialogue=document.getElementById('dialogue').value.trim()||(lang==='my'?'စကားပြောမပါ':'No dialogue');
+ const n=Number(document.getElementById('scenes').value),duration=document.getElementById('duration').value;
+ const motion=document.getElementById('motion').value.trim()||(lang==='my'?'သဘာဝကျသော လှုပ်ရှားမှု':'Natural subtle motion');
+ const camera=document.getElementById('camera').value,ratio=document.getElementById('ratio').value;
+ const avoid=document.getElementById('avoid').value.trim()||(lang==='my'?'မျက်နှာပုံစံမပြောင်းစေ၊ လက်/ခြေ မပျက်စေ':'Do not alter face identity; avoid distorted hands or limbs');
+ const lines=Array.from({length:n},(_,i)=>lang==='my'?`ဇာတ်ကွက် ${i+1}: ${idea}။ လှုပ်ရှားမှု: ${motion}။`:`Scene ${i+1}: ${idea}. Motion: ${motion}.`);
+ lastPrompt=lang==='my'?`AMT AI STUDIO — IMAGE TO VIDEO PROMPT\nကြာချိန်: ${duration} စက္ကန့်\nဗီဒီယိုအချိုး: ${ratio}\nဇာတ်ကွက်: ${n} ခန်း\nအကြောင်းအရာ: ${idea}\nလှုပ်ရှားမှု: ${motion}\nကင်မရာ: ${camera}\nမြန်မာစကားပြော/စာတန်း: ${dialogue}\nမဖြစ်စေချင်တာ: ${avoid}\n\n${lines.join('\n')}\n\nအရည်အသွေးမြင့်၊ သဘာဝကျသော အလင်းအမှောင်၊ မူရင်းဓာတ်ပုံထဲက မျက်နှာနှင့် အဝတ်အစားပုံစံကို တတ်နိုင်သမျှ ထိန်းထားပါ။`:`AMT AI STUDIO — IMAGE TO VIDEO PROMPT\nDuration: ${duration} seconds\nAspect ratio: ${ratio}\nScenes: ${n}\nConcept: ${idea}\nMotion: ${motion}\nCamera: ${camera}\nBurmese dialogue/captions: ${dialogue}\nAvoid: ${avoid}\n\n${lines.join('\n')}\n\nHigh quality, natural lighting; preserve the source photo's facial identity and clothing as consistently as possible.`;
+ document.getElementById('result').textContent=lastPrompt;
+});
+document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(lastPrompt||document.getElementById('result').textContent);document.getElementById('copy').textContent=T[lang].copied;}catch(e){document.getElementById('copy').textContent=T[lang].copyFail;}});
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+</script></body></html>
